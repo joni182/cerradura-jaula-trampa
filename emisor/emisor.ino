@@ -11,15 +11,16 @@
 #define PULSADOR_2 3
 #define PULSADOR_3 4
 
-const char ABIERTO[] = "ABIERTO";
-const char CERRADO[] = "CERRADO";
-const char TEST[] = "TEST";
+const int ABIERTO[] = {1};
+const int CERRADO[] = {2};
+const int TEST[] = {9};
 
 //Variable con la dirección del canal por donde se va a transmitir
 byte direccion[5] = {'c', 'a', 'n', 'a', 'l'};
 
 //creamos el objeto radio (NRF24L01)
 RF24 radio(CE_PIN, CSN_PIN);
+  float datos[1];
 
 //vector con los datos a enviar
 
@@ -39,6 +40,7 @@ void setup()
   radio.openWritingPipe(direccion);
 
 
+
 }
 
 void loop()
@@ -46,15 +48,13 @@ void loop()
   while (!digitalRead(PULSADOR_1) == HIGH && !digitalRead(PULSADOR_2) == HIGH && !digitalRead(PULSADOR_3) == HIGH) {}
 
   if (digitalRead(PULSADOR_1) == HIGH) {
-    Serial.println(ABIERTO);
     bool ok = radio.write(ABIERTO, sizeof(ABIERTO));
-    
+          Serial.println(ABIERTO[0]);
+
     //reportamos por el puerto serial los datos enviados
     if (ok)
     {
       Serial.print("Datos enviados: ");
-      Serial.println(ABIERTO);
-
     }
     else
     {
@@ -63,15 +63,13 @@ void loop()
   }
 
   if (digitalRead(PULSADOR_2) == HIGH) {
-    Serial.println(CERRADO);
      bool ok = radio.write(CERRADO, sizeof(CERRADO));
-    
+     Serial.println(CERRADO[0]);
+
     //reportamos por el puerto serial los datos enviados
     if (ok)
     {
       Serial.print("Datos enviados: ");
-      Serial.println(CERRADO);
-
     }
     else
     {
@@ -81,15 +79,13 @@ void loop()
   }
 
   if (digitalRead(PULSADOR_3) == HIGH) {
-    Serial.println(TEST);
+     Serial.println(TEST[0]);
      bool ok = radio.write(TEST, sizeof(TEST));
     
     //reportamos por el puerto serial los datos enviados
     if (ok)
     {
       Serial.print("Datos enviados: ");
-      Serial.println(TEST);
-
     }
     else
     {
@@ -97,5 +93,4 @@ void loop()
     }
   }
 
-  delay(250);
 }
