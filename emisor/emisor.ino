@@ -64,10 +64,37 @@ void loop()
 
   if (digitalRead(PULSADOR_2) == HIGH) {
     Serial.println(CERRADO);
+     bool ok = radio.write(CERRADO, sizeof(CERRADO));
+    
+    //reportamos por el puerto serial los datos enviados
+    if (ok)
+    {
+      Serial.print("Datos enviados: ");
+      Serial.println(CERRADO);
+
+    }
+    else
+    {
+      Serial.println("no se ha podido enviar");
+    }
+    
   }
 
   if (digitalRead(PULSADOR_3) == HIGH) {
     Serial.println(TEST);
+     bool ok = radio.write(TEST, sizeof(TEST));
+    
+    //reportamos por el puerto serial los datos enviados
+    if (ok)
+    {
+      Serial.print("Datos enviados: ");
+      Serial.println(TEST);
+
+    }
+    else
+    {
+      Serial.println("no se ha podido enviar");
+    }
   }
 
   delay(250);

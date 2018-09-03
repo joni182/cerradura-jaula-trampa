@@ -1,3 +1,4 @@
+#include <Servo.h>
 #include <SPI.h>
 #include <nRF24L01.h>
 #include <RF24.h>
@@ -40,10 +41,7 @@ void loop() {
      //Leemos los datos y los guardamos en la variable datos[]
      radio.read(datos,sizeof(datos));
      
-     if(datos[0] == 9)
-     {
-          digitalWrite(led, HIGH);
-     }
+     Serial.println(datos[0]);
  }
  else
  {
